@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Kotoby{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'core/css/home_about.css' %}">
+    <link rel="icon" href="{% static 'core/assets/main-photos/icon.svg' %}">
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<nav>
+    <span class="nav-brand">
+        Kotoby
+        <img src="{% static 'core/assets/main-photos/icon.svg' %}" alt="icon">
+    </span>
+
+    <div class="nav-links">
+
+        <!-- 🌐 Always visible -->
+        <a href="{% url 'home' %}"
+           class="{% if request.path == '/' %}active{% endif %}">
+           Home
+        </a>
+
+        <a href="{% url 'about' %}"
+           class="{% if request.path == '/about/' %}active{% endif %}">
+           About
+        </a>
+
+        <a href="#">Books</a>
+        <a href="#">Search</a>
+
+        <!-- 👤 Authenticated users -->
+        {% if user.is_authenticated %}
+
+            <a href="#">My Library</a>
+            <a href="#">Profile</a>
+            <a href="#">Logout</a>
+
+        {% else %}
+
+            <!-- 🔓 Guests -->
+            <a href="#">Login</a>
+            <a href="#">Sign Up</a>
+
+        {% endif %}
+
+    </div>
+     
+     
+   
+    
+ 
+</nav>
+
+<!-- ================= PAGE CONTENT ================= -->
+{% block content %}{% endblock %}
+
+<!-- ================= FOOTER ================= -->
+<footer>
+    <p>© 2026 Online Library. All Rights Reserved.</p>
+</footer>
+
+ 
+
+</body>
+</html>
