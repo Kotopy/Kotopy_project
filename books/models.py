@@ -10,7 +10,7 @@ class Book(models.Model):
         ('Fiction', 'Fiction'),
         ('Religious', 'Religious'),
         ('Science', 'Science'),
-        ('ather', 'Other'),
+        ('Other', 'Other'),
     ]
     code = models.CharField(max_length=10, unique=True) 
     title = models.CharField(max_length=200)
