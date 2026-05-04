@@ -1,0 +1,285 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Profile — Kotoby{% endblock %}
+
+{% block extra_css %}
+<style>
+  /* ── Page wrapper ── */
+  .profile-page {
+    min-height: calc(100vh - 120px);
+    padding: 3rem 2rem 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .profile-container {
+    width: 100%;
+    max-width: 720px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  /* ── Messages ── */
+  .messages-bar { width: 100%; }
+  .alert { padding: 0.8rem 1.2rem; border-radius: 10px; font-size: 0.88rem; margin-bottom: 0.5rem; color: white; }
+  .alert-success { background: rgba(40,167,69,0.25); border: 1px solid #28a745; }
+  .alert-warning { background: rgba(255,193,7,0.2);  border: 1px solid #ffc107; color: #ffc107; }
+  .alert-error   { background: rgba(220,53,69,0.25); border: 1px solid #dc3545; }
+
+  /* ── Card ── */
+  .profile-card {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+  }
+
+  /* ── Card Header ── */
+  .profile-card-header {
+    padding: 2.5rem 2rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.8rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .avatar-circle {
+    width: 82px; height: 82px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #9b6dff, #4400a3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; font-weight: 700; color: white;
+    flex-shrink: 0;
+    box-shadow: 0 4px 20px rgba(155, 109, 255, 0.35);
+    letter-spacing: -0.02em;
+  }
+
+  .profile-header-info h1 {
+    font-family: 'Georgia', serif;
+    font-size: 1.7rem;
+    color: white;
+    margin: 0 0 0.25rem;
+    line-height: 1.2;
+  }
+
+  .profile-username {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.5);
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.06em;
+  }
+
+  .role-badge {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .role-badge.admin { background: rgba(255,193,7,0.2); color: #ffc107; border: 1px solid #ffc107; }
+  .role-badge.user  { background: rgba(155,109,255,0.2); color: #b09ee0; border: 1px solid rgba(155,109,255,0.5); }
+
+  /* ── Card Body (info rows) ── */
+  .profile-card-body {
+    padding: 1.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .info-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .info-row:last-child { border-bottom: none; }
+
+  .info-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.45);
+    font-family: 'Courier New', monospace;
+    min-width: 130px;
+  }
+
+  .info-value {
+    font-size: 0.95rem;
+    color: white;
+    text-align: right;
+  }
+  .info-value.muted { color: rgba(255,255,255,0.4); font-style: italic; }
+
+  /* ── Stats row ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .stat-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 1.3rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    font-family: 'Georgia', serif;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: 'Courier New', monospace;
+  }
+
+  /* ── Actions ── */
+  .profile-actions {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-edit {
+    padding: 0.65rem 1.6rem;
+    background: white;
+    color: #4400a3;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    cursor: pointer;
+  }
+  .btn-edit:hover { background: #e0d5ff; transform: translateY(-1px); }
+
+  .btn-password {
+    padding: 0.65rem 1.6rem;
+    background: transparent;
+    color: rgba(255,255,255,0.75);
+    border: 1.5px solid rgba(255,255,255,0.3);
+    border-radius: 10px;
+    font-size: 0.88rem;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-password:hover { border-color: white; color: white; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="profile-page">
+  <div class="profile-container">
+
+    {% if messages %}
+    <div class="messages-bar">
+      {% for msg in messages %}
+        <div class="alert alert-{{ msg.tags }}">{{ msg }}</div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- ── Main Profile Card ── -->
+    <div class="profile-card">
+
+      <!-- Header -->
+      <div class="profile-card-header">
+        <div class="avatar-circle">
+          {{ user.username|first|upper }}
+        </div>
+        <div class="profile-header-info">
+          <h1>
+            {% if user.first_name or user.last_name %}
+              {{ user.first_name }} {{ user.last_name }}
+            {% else %}
+              {{ user.username }}
+            {% endif %}
+          </h1>
+          <p class="profile-username">@{{ user.username }}</p>
+          <span class="role-badge {{ profile.role }}">{{ profile.get_role_display }}</span>
+        </div>
+      </div>
+
+      <!-- Info rows -->
+      <div class="profile-card-body">
+
+        <div class="info-row">
+          <span class="info-label">Username</span>
+          <span class="info-value">{{ user.username }}</span>
+        </div>
+
+        <div class="info-row">
+          <span class="info-label">Email</span>
+          <span class="info-value {% if not user.email %}muted{% endif %}">
+            {% if user.email %}{{ user.email }}{% else %}Not provided{% endif %}
+          </span>
+        </div>
+
+        <div class="info-row">
+          <span class="info-label">First Name</span>
+          <span class="info-value {% if not user.first_name %}muted{% endif %}">
+            {% if user.first_name %}{{ user.first_name }}{% else %}Not set{% endif %}
+          </span>
+        </div>
+
+        <div class="info-row">
+          <span class="info-label">Last Name</span>
+          <span class="info-value {% if not user.last_name %}muted{% endif %}">
+            {% if user.last_name %}{{ user.last_name }}{% else %}Not set{% endif %}
+          </span>
+        </div>
+
+        <div class="info-row">
+          <span class="info-label">Member Since</span>
+          <span class="info-value">{{ user.date_joined|date:"F d, Y" }}</span>
+        </div>
+
+        <div class="info-row">
+          <span class="info-label">Last Login</span>
+          <span class="info-value">{{ user.last_login|date:"F d, Y" }}</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Stats ── -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <span class="stat-number">{{ borrowed_count }}</span>
+        <span class="stat-label">Books Borrowed</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">{{ profile.role|title }}</span>
+        <span class="stat-label">Account Type</span>
+      </div>
+    </div>
+
+    <!-- ── Actions ── -->
+    <div class="profile-actions">
+      <a href="{% url 'edit_profile' %}" class="btn-edit">✏️ Edit Profile</a>
+      <a href="{% url 'change_password' %}" class="btn-password">🔒 Change Password</a>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

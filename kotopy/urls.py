@@ -25,6 +25,7 @@ urlpatterns = [
     # -------------------------borrowed---------
     path('books/', include('books.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('accounts.urls')),
 
 ]
 # forbooks
