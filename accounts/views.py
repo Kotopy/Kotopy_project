@@ -6,10 +6,9 @@ from django.contrib.auth.forms import PasswordChangeForm
 from .models import Profile
 from books.models import BorrowedBook
 
-
+# انا سمية علي 
 @login_required
 def profile_view(request):
-    """Display the current user's profile page."""
     profile, _ = Profile.objects.get_or_create(user=request.user)
     borrowed_count = BorrowedBook.objects.filter(user=request.user).count()
 
@@ -22,7 +21,6 @@ def profile_view(request):
 
 @login_required
 def edit_profile_view(request):
-    """Allow the user to edit their first/last name and email."""
     profile, _ = Profile.objects.get_or_create(user=request.user)
 
     if request.method == 'POST':
@@ -42,7 +40,6 @@ def edit_profile_view(request):
 
 @login_required
 def change_password_view(request):
-    """Allow the user to change their password."""
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
