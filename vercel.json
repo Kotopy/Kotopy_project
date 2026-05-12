@@ -7,14 +7,14 @@
       "config": { "runtime": "python3.12" }
     },
     {
-      "src": "core/static/**",
+      "src": "staticfiles/**",
       "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/static/(.*)",
-      "dest": "core/static/$1"
+      "dest": "staticfiles/$1"
     },
     {
       "src": "/(.*)",
