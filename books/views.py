@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Book, BorrowedBook
+from django.shortcuts import render, get_object_or_404
+from .models import Book
 
 
 def book_list(request):
@@ -79,4 +81,51 @@ def my_library(request):
     return render(request, 'books/my_library.html', {
         'borrowed_books': borrowed_books,
         'page': 'my_library',
+    })
+
+def search_books(request):
+    title = request.GET.get('title', '').strip()
+    author = request.GET.get('author', '').strip()
+    category = request.GET.get('category', '').strip()
+    year = request.GET.get('year', '').strip()
+
+    results = None
+
+    if any([title, author, category, year]):
+        results = Book.objects.all()
+        if title:
+            results = results.filter(title__icontains=title)
+        if author:
+            results = results.filter(author__icontains=author)
+        if category:
+            results = results.filter(category=category)
+        if year:
+            results = results.filter(year=year)
+
+    borrowed_ids = []
+    if request.user.is_authenticated:
+        borrowed_ids = BorrowedBook.objects.filter(
+            user=request.user
+        ).values_list('book_id', flat=True)
+
+    return render(request, 'books/search.html', {
+        'results': results,
+        'title': title,
+        'author': author,
+        'category': category,
+        'year': year,
+        'categories': Book.CATEGORY_CHOICES,
+        'borrowed_ids': borrowed_ids,
+    })
+
+
+
+def book_details(request, id):
+    book = get_object_or_404(Book, id=id)
+
+    suggested_books = Book.objects.exclude(id=id)[:6]
+
+    return render(request, 'books/book_details.html', {
+        'book': book,
+        'suggested_books': suggested_books
     })
