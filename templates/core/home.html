@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<header class="home-header">
+    <div>
+        <h1>welcome to our library</h1>
+
+        <p>
+            Discover a futuristic library experience.
+            Explore books, knowledge, and imagination in a new digital world.
+        </p>
+
+        <div class="home-actions">
+            {% if user.is_authenticated %}
+                <a href="{% url 'book_list' %}" class="btn">Explore Books</a>
+                <a href="{% url 'profile' %}" class="btn outline">My Profile</a>
+            {% else %}
+                <a href="{% url 'signup' %}" class="btn">Sign Up</a>
+                <a href="{% url 'login' %}" class="btn">Log in</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <img class="home-image"
+         src="{% static 'core/assets/main-photos/home_photo.svg' %}">
+</header>
+
+<section class="bottom">
+    <h2>Join Our Library Today</h2>
+    <p>Create an account to explore and borrow books.</p>
+    {% if user.is_authenticated %}
+        <a href="{% url 'book_list' %}" class="btn">Get Started</a>
+    {% else %}
+        <a href="{% url 'signup' %}" class="btn">Get Started</a>
+    {% endif %}
+</section>
+
+{% endblock %}
