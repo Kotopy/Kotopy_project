@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}kotoby – Login{% endblock %}
+
+{% block content %}
+<div class="main-content">
+  <div class="container">
+
+    <h2 id="form-title">Login</h2>
+
+    <form method="POST" action="{% url 'login' %}">
+      {% csrf_token %}
+
+      <label for="login-username">Username:</label><br>
+      <input type="text" id="login-username" name="username" placeholder="Enter your username"><br><br>
+
+      <label for="login-password">Password:</label><br>
+      <input type="password" id="login-password" name="password" placeholder="Enter your password"><br><br>
+
+      {% if form.errors %}
+        <p style="color: salmon; text-align: center;">Invalid username or password.</p><br>
+      {% endif %}
+
+      <div class="submit">
+        <input type="submit" id="mySubmit" value="Login">
+      </div>
+    </form>
+
+    <p id="quest">Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>
+
+  </div>
+</div>
+{% endblock %}
