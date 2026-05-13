@@ -1,0 +1,345 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    :root {
+        --dark-blue: #5D54A4;
+        --medium-blue: #9787E1;
+        --soft-blue: #B9C1FF;
+        --white: #ffffff;
+        --pale-blue: rgba(243, 231, 255, 0.8);
+    }
+
+    *{
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        color: var(--dark-blue);
+        background-image: linear-gradient(to bottom, #000000 25%, #4400a3 ,#ffffff);
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+        overflow-x: hidden;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 1100px;
+        margin: 70px auto 30px;
+        padding: 20px;
+    }
+
+    .book-details-main {
+        display: flex;
+        gap: 20px;
+        background: var(--pale-blue);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 20px 45px rgba(0,0,0,0.5);
+        padding: 25px;
+    }
+
+    .book-cover-part {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .book-cover-part img {
+        width: 100%;
+        max-width: 280px;
+        height: auto;
+        aspect-ratio: 2/3;
+        object-fit: cover;
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    .book-info-part {
+        flex: 1.5;
+    }
+
+    .book-info-part h1 {
+        margin-top: 0;
+        font-size: 42px;
+        word-break: break-word;
+    }
+
+    .book-info-part p {
+        font-size: 17px;
+        line-height: 1.6;
+    }
+
+    .description-box {
+        background: rgba(255,255,255,0.6);
+        padding: 15px;
+        border-radius: 12px;
+        margin: 20px 0;
+        line-height: 1.8;
+        font-size: 16px;
+    }
+
+    .details-book {
+        background: rgba(255,255,255,0.35);
+        padding: 18px;
+        border-radius: 12px;
+    }
+
+    .details-book p {
+        margin: 10px 0;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 12px;
+        margin-top: 25px;
+    }
+
+    .borrow-button {
+        background: var(--dark-blue);
+        color: white;
+        border: none;
+        padding: 14px;
+        border-radius: 12px;
+        flex: 2;
+        cursor: pointer;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+    .borrow-button:hover {
+        background: #4a418f;
+    }
+
+    .back-button {
+        background: rgba(0,0,0,0.1);
+        border: none;
+        padding: 14px;
+        border-radius: 12px;
+        flex: 1;
+        cursor: pointer;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+    .back-button:hover {
+        background: rgba(0,0,0,0.2);
+    }
+
+    .suggestions {
+        margin-top: 50px;
+    }
+
+    .suggestions h3 {
+        color: white;
+        margin-bottom: 20px;
+        font-size: 28px;
+    }
+
+    .suggestion-grid {
+        display: flex;
+        gap: 18px;
+        overflow-x: auto;
+        padding-bottom: 10px;
+        scroll-behavior: smooth;
+    }
+
+    .suggestion-grid::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .suggestion-grid::-webkit-scrollbar-thumb {
+        background: rgba(255,255,255,0.4);
+        border-radius: 20px;
+    }
+
+    .suggestion-book {
+        min-width: 190px;
+        background: rgba(255,255,255,0.12);
+        padding: 12px;
+        border-radius: 15px;
+        cursor: pointer;
+        text-align: center;
+        transition: 0.3s;
+        backdrop-filter: blur(5px);
+        text-decoration: none;
+        display: block;
+    }
+
+    .suggestion-book:hover {
+        transform: translateY(-6px);
+        background: rgba(255,255,255,0.2);
+    }
+
+    .suggestion-book img {
+        width: 100%;
+        height: 230px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .suggestion-book p {
+        color: white;
+        margin-top: 12px;
+        font-size: 15px;
+    }
+
+    /* ===== Tablet ===== */
+
+    @media (max-width: 992px) {
+
+        .container{
+            padding: 15px;
+        }
+
+        .book-details-main {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .book-info-part h1 {
+            font-size: 34px;
+        }
+
+        .details-book {
+            text-align: left;
+        }
+
+        .action-buttons {
+            width: 100%;
+        }
+    }
+
+    /* ===== Mobile ===== */
+
+    @media (max-width: 600px) {
+
+        .container {
+            margin-top: 55px;
+            padding: 12px;
+        }
+
+        .book-details-main {
+            padding: 18px;
+            border-radius: 15px;
+        }
+
+        .book-cover-part img {
+            max-width: 220px;
+        }
+
+        .book-info-part h1 {
+            font-size: 28px;
+        }
+
+        .book-info-part p,
+        .description-box,
+        .details-book p {
+            font-size: 14px;
+        }
+
+        .action-buttons {
+            flex-direction: column;
+        }
+
+        .borrow-button,
+        .back-button {
+            width: 100%;
+            padding: 13px;
+            font-size: 15px;
+        }
+
+        .suggestions h3 {
+            font-size: 22px;
+        }
+
+        .suggestion-book {
+            min-width: 150px;
+        }
+
+        .suggestion-book img {
+            height: 190px;
+        }
+    }
+</style>
+
+<div class="container">
+
+    <div class="book-details-main">
+
+        <div class="book-cover-part">
+            <img src="{{ book.image.url }}" alt="{{ book.title }}">
+        </div>
+
+        <div class="book-info-part">
+
+            <h1>{{ book.title }}</h1>
+
+            <p>by {{ book.author }}</p>
+
+            <div class="description-box">
+                {{ book.description }}
+            </div>
+
+            <div class="details-book">
+                <p><b>ID:</b> {{ book.id }}</p>
+                <p><b>Category:</b> {{ book.category }}</p>
+                <p><b>Year:</b> {{ book.year }}</p>
+                <p><b>Copies:</b> {{ book.copies }}</p>
+            </div>
+
+            <div class="action-buttons">
+
+                <button class="borrow-button">
+                    Borrow Now
+                </button>
+
+                <button class="back-button"
+                        onclick="history.back()">
+
+                    Back
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="suggestions">
+
+        <h3>Books you might like</h3>
+
+        <div class="suggestion-grid">
+
+            {% for suggested in suggested_books %}
+
+            <a href="{% url 'book_details' suggested.id %}"
+               class="suggestion-book">
+
+                <img src="{{ suggested.image.url }}"
+                     alt="{{ suggested.title }}">
+
+                <p>{{ suggested.title }}</p>
+
+            </a>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
