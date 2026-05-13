@@ -9,7 +9,20 @@ from books.models import BorrowedBook
 # انا سمية علي 
 @login_required
 def profile_view(request):
-    profile, _ = Profile.objects.get_or_create(user=request.user)
+    profile, created = Profile.objects.get_or_create(user=request.user)
+    
+    # Sync role with staff/superuser status or 'admin' group
+    is_admin = request.user.is_staff or request.user.is_superuser or request.user.groups.filter(name='admin').exists()
+    
+    if is_admin:
+        if profile.role != 'admin':
+            profile.role = 'admin'
+            profile.save()
+    elif profile.role == 'admin':
+        # If they were admin but are no longer staff/superuser/group-admin, demote to user
+        profile.role = 'user'
+        profile.save()
+
     borrowed_count = BorrowedBook.objects.filter(user=request.user).count()
 
     return render(request, 'accounts/profile.html', {
