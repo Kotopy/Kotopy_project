@@ -296,21 +296,51 @@
                 <p><b>Year:</b> {{ book.year }}</p>
                 <p><b>Copies:</b> {{ book.copies }}</p>
             </div>
-
+<!-- --------- -->
             <div class="action-buttons">
 
-                <button class="borrow-button">
-                    Borrow Now
-                </button>
+    {% if user.is_authenticated %}
 
-                <button class="back-button"
-                        onclick="history.back()">
+        {% if book.id in borrowed_ids %}
 
-                    Back
+            <a href="{% url 'return_book' book.id %}"
+               class="borrow-button"
+               style="text-decoration:none; text-align:center;">
+               ↩ Return Book
+            </a>
 
-                </button>
+        {% elif book.copies > 0 %}
 
-            </div>
+            <a href="{% url 'borrow_book' book.id %}"
+               class="borrow-button"
+               style="text-decoration:none; text-align:center;">
+               Borrow Now
+            </a>
+
+        {% else %}
+
+            <span class="borrow-button"
+                  style="opacity:0.5; cursor:not-allowed; text-align:center;">
+                  Out of Stock
+            </span>
+
+        {% endif %}
+
+    {% else %}
+
+        <a href="/accounts/login/"
+           class="borrow-button"
+           style="text-decoration:none; text-align:center;">
+           Login to Borrow
+        </a>
+
+    {% endif %}
+
+    <button class="back-button" onclick="history.back()">
+        Back
+    </button>
+
+</div>
 
         </div>
 
