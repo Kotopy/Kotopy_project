@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}kotoby – Login{% endblock %}
-
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'auth_app/css/style.css' %}">
+{% endblock %}
 {% block content %}
 <div class="main-content">
   <div class="container">
