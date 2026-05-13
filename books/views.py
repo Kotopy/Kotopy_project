@@ -122,10 +122,16 @@ def search_books(request):
 
 def book_details(request, id):
     book = get_object_or_404(Book, id=id)
-
     suggested_books = Book.objects.exclude(id=id)[:6]
+
+    borrowed_ids = []
+    if request.user.is_authenticated:
+        borrowed_ids = BorrowedBook.objects.filter(
+            user=request.user
+        ).values_list('book_id', flat=True)
 
     return render(request, 'books/book_details.html', {
         'book': book,
-        'suggested_books': suggested_books
+        'suggested_books': suggested_books,
+        'borrowed_ids': borrowed_ids,
     })
