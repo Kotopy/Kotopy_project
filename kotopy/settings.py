@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'books.apps.BooksConfig',
     'core.apps.CoreConfig',
+    'auth_app.apps.AuthAppConfig',
 ]
 
 MIDDLEWARE = [
@@ -101,7 +102,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
+LOGIN_URL = '/auth/login/'
+LOGIN_REDIRECT_URL = '/books/'        
+LOGOUT_REDIRECT_URL = '/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
