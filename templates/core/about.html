@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+
+<header class="about-header">
+    <div>
+        <h2>About Our Library</h2>
+        <p>Learn more about our mission, features, and team</p>
+    </div>
+
+    <img class="about-image"
+         src="{% static 'core/assets/main-photos/about-photo.svg' %}">
+</header>
+
+<section class="about-section">
+
+    <h2>Our Mission</h2>
+    <p>
+        Our Online Library platform is designed to make reading easier and more accessible.
+        Users can explore, search, and borrow books anytime and from anywhere.
+        We aim to simplify the library experience using modern web technologies.
+    </p>
+
+    <h2>Features</h2>
+    <ul>
+        <li>Browse and search a wide range of books.</li>
+        <li>Borrow books with a simple click.</li>
+        <li>Access your borrowed books from your profile.</li>
+        <li>Enjoy a user-friendly interface designed for all ages.</li>
+    </ul>
+
+</section>
+
+{% endblock %}

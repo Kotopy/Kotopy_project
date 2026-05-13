@@ -1,0 +1,239 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kotoby - Book Details</title>
+
+    <link rel="icon" href="{% static 'books/images/icon.svg' %}">
+
+    <style>
+        :root {
+            --dark-blue: #5D54A4;
+            --medium-blue: #9787E1;
+            --soft-blue: #B9C1FF;
+            --white: #ffffff;
+            --pale-blue: rgba(243, 231, 255, 0.8);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            color: var(--dark-blue);
+            background-image: linear-gradient(to bottom, #000000 25%, #4400a3 ,#ffffff);
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            overflow-x: hidden;
+        }
+
+        nav {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            box-sizing: border-box;
+        }
+
+        .nav-brand {
+            color: white;
+            font-weight: 700;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 120px auto 30px;
+            padding: 20px;
+        }
+
+        .book-details-main {
+            display: flex;
+            background: var(--pale-blue);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 45px black;
+        }
+
+        .book-cover-part {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .book-cover-part img {
+            width: 260px;
+            height: 380px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .book-info-part {
+            flex: 1.5;
+            padding: 30px;
+        }
+
+        .description-box {
+            background: rgba(255,255,255,0.6);
+            padding: 12px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .details-book {
+            background: rgba(255,255,255,0.3);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .borrow-button {
+            background: var(--dark-blue);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            flex: 2;
+            cursor: pointer;
+        }
+
+        .back-button {
+            background: rgba(0,0,0,0.1);
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .suggestions {
+            margin-top: 40px;
+        }
+
+        .suggestion-grid {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+        }
+
+        .suggestion-book {
+            min-width: 180px;
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .suggestion-book img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .suggestion-book p {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <div class="nav-brand">
+        kotoby
+        <img src="{% static 'books/images/icon.svg' %}" width="30">
+    </div>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="#">About</a>
+        <a href="#">Books</a>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="book-details-main">
+
+        <div class="book-cover-part">
+            <img src="{{ book.image.url }}" alt="{{ book.title }}">
+        </div>
+
+        <div class="book-info-part">
+
+            <h1>{{ book.title }}</h1>
+            <p>by {{ book.author }}</p>
+
+            <div class="description-box">
+                {{ book.description }}
+            </div>
+
+            <div class="details-book">
+                <p><b>ID:</b> {{ book.id }}</p>
+                <p><b>Category:</b> {{ book.category }}</p>
+                <p><b>Year:</b> {{ book.year }}</p>
+                <p><b>Copies:</b> {{ book.copies }}</p>
+            </div>
+
+            <div class="action-buttons">
+                <button class="borrow-button">Borrow Now</button>
+                <button class="back-button" onclick="history.back()">Back</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="suggestions">
+        <h3 style="color:white;">Books you might like</h3>
+
+        <div class="suggestion-grid">
+
+            {% for suggested in suggested_books %}
+            <div class="suggestion-book"
+                 onclick="window.location.href='/details/{{ suggested.id }}/'">
+
+                <img src="{{ suggested.image.url }}">
+                <p>{{ suggested.title }}</p>
+
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
