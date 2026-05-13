@@ -1,186 +1,276 @@
+{% extends 'base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block content %}
 
-    <title>Kotoby - Book Details</title>
+<style>
+    :root {
+        --dark-blue: #5D54A4;
+        --medium-blue: #9787E1;
+        --soft-blue: #B9C1FF;
+        --white: #ffffff;
+        --pale-blue: rgba(243, 231, 255, 0.8);
+    }
 
-    <link rel="icon" href="{% static 'books/images/icon.svg' %}">
+    *{
+        box-sizing: border-box;
+    }
 
-    <style>
-        :root {
-            --dark-blue: #5D54A4;
-            --medium-blue: #9787E1;
-            --soft-blue: #B9C1FF;
-            --white: #ffffff;
-            --pale-blue: rgba(243, 231, 255, 0.8);
-        }
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        color: var(--dark-blue);
+        background-image: linear-gradient(to bottom, #000000 25%, #4400a3 ,#ffffff);
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+        overflow-x: hidden;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            color: var(--dark-blue);
-            background-image: linear-gradient(to bottom, #000000 25%, #4400a3 ,#ffffff);
-            background-attachment: fixed;
-            background-size: cover;
-            background-position: center;
-            overflow-x: hidden;
-        }
+    .container {
+        width: 100%;
+        max-width: 1100px;
+        margin: 70px auto 30px;
+        padding: 20px;
+    }
 
-        nav {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 40px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 999;
-            box-sizing: border-box;
-        }
+    .book-details-main {
+        display: flex;
+        gap: 20px;
+        background: var(--pale-blue);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 20px 45px rgba(0,0,0,0.5);
+        padding: 25px;
+    }
 
-        .nav-brand {
-            color: white;
-            font-weight: 700;
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+    .book-cover-part {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-        .nav-links a {
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
-            margin-left: 20px;
-        }
+    .book-cover-part img {
+        width: 100%;
+        max-width: 280px;
+        height: auto;
+        aspect-ratio: 2/3;
+        object-fit: cover;
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
 
-        .nav-links a:hover {
-            color: white;
-        }
+    .book-info-part {
+        flex: 1.5;
+    }
 
-        .container {
-            max-width: 1000px;
-            margin: 120px auto 30px;
-            padding: 20px;
+    .book-info-part h1 {
+        margin-top: 0;
+        font-size: 42px;
+        word-break: break-word;
+    }
+
+    .book-info-part p {
+        font-size: 17px;
+        line-height: 1.6;
+    }
+
+    .description-box {
+        background: rgba(255,255,255,0.6);
+        padding: 15px;
+        border-radius: 12px;
+        margin: 20px 0;
+        line-height: 1.8;
+        font-size: 16px;
+    }
+
+    .details-book {
+        background: rgba(255,255,255,0.35);
+        padding: 18px;
+        border-radius: 12px;
+    }
+
+    .details-book p {
+        margin: 10px 0;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 12px;
+        margin-top: 25px;
+    }
+
+    .borrow-button {
+        background: var(--dark-blue);
+        color: white;
+        border: none;
+        padding: 14px;
+        border-radius: 12px;
+        flex: 2;
+        cursor: pointer;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+    .borrow-button:hover {
+        background: #4a418f;
+    }
+
+    .back-button {
+        background: rgba(0,0,0,0.1);
+        border: none;
+        padding: 14px;
+        border-radius: 12px;
+        flex: 1;
+        cursor: pointer;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+    .back-button:hover {
+        background: rgba(0,0,0,0.2);
+    }
+
+    .suggestions {
+        margin-top: 50px;
+    }
+
+    .suggestions h3 {
+        color: white;
+        margin-bottom: 20px;
+        font-size: 28px;
+    }
+
+    .suggestion-grid {
+        display: flex;
+        gap: 18px;
+        overflow-x: auto;
+        padding-bottom: 10px;
+        scroll-behavior: smooth;
+    }
+
+    .suggestion-grid::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .suggestion-grid::-webkit-scrollbar-thumb {
+        background: rgba(255,255,255,0.4);
+        border-radius: 20px;
+    }
+
+    .suggestion-book {
+        min-width: 190px;
+        background: rgba(255,255,255,0.12);
+        padding: 12px;
+        border-radius: 15px;
+        cursor: pointer;
+        text-align: center;
+        transition: 0.3s;
+        backdrop-filter: blur(5px);
+        text-decoration: none;
+        display: block;
+    }
+
+    .suggestion-book:hover {
+        transform: translateY(-6px);
+        background: rgba(255,255,255,0.2);
+    }
+
+    .suggestion-book img {
+        width: 100%;
+        height: 230px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .suggestion-book p {
+        color: white;
+        margin-top: 12px;
+        font-size: 15px;
+    }
+
+    /* ===== Tablet ===== */
+
+    @media (max-width: 992px) {
+
+        .container{
+            padding: 15px;
         }
 
         .book-details-main {
-            display: flex;
-            background: var(--pale-blue);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 20px 45px black;
-        }
-
-        .book-cover-part {
-            flex: 1;
-            display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            padding: 30px;
-        }
-
-        .book-cover-part img {
-            width: 260px;
-            height: 380px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-
-        .book-info-part {
-            flex: 1.5;
-            padding: 30px;
-        }
-
-        .description-box {
-            background: rgba(255,255,255,0.6);
-            padding: 12px;
-            border-radius: 10px;
-            margin: 15px 0;
-        }
-
-        .details-book {
-            background: rgba(255,255,255,0.3);
-            padding: 15px;
-            border-radius: 10px;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .borrow-button {
-            background: var(--dark-blue);
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 10px;
-            flex: 2;
-            cursor: pointer;
-        }
-
-        .back-button {
-            background: rgba(0,0,0,0.1);
-            border: none;
-            padding: 12px;
-            border-radius: 10px;
-            flex: 1;
-            cursor: pointer;
-        }
-
-        .suggestions {
-            margin-top: 40px;
-        }
-
-        .suggestion-grid {
-            display: flex;
-            gap: 15px;
-            overflow-x: auto;
-        }
-
-        .suggestion-book {
-            min-width: 180px;
-            background: rgba(255,255,255,0.1);
-            padding: 10px;
-            border-radius: 10px;
-            cursor: pointer;
             text-align: center;
         }
 
-        .suggestion-book img {
+        .book-info-part h1 {
+            font-size: 34px;
+        }
+
+        .details-book {
+            text-align: left;
+        }
+
+        .action-buttons {
             width: 100%;
-            height: 200px;
-            object-fit: cover;
+        }
+    }
+
+    /* ===== Mobile ===== */
+
+    @media (max-width: 600px) {
+
+        .container {
+            margin-top: 55px;
+            padding: 12px;
         }
 
-        .suggestion-book p {
-            color: white;
+        .book-details-main {
+            padding: 18px;
+            border-radius: 15px;
         }
-    </style>
-</head>
 
-<body>
+        .book-cover-part img {
+            max-width: 220px;
+        }
 
-<nav>
-    <div class="nav-brand">
-        kotoby
-        <img src="{% static 'books/images/icon.svg' %}" width="30">
-    </div>
+        .book-info-part h1 {
+            font-size: 28px;
+        }
 
-    <div class="nav-links">
-        <a href="/">Home</a>
-        <a href="#">About</a>
-        <a href="#">Books</a>
-    </div>
-</nav>
+        .book-info-part p,
+        .description-box,
+        .details-book p {
+            font-size: 14px;
+        }
+
+        .action-buttons {
+            flex-direction: column;
+        }
+
+        .borrow-button,
+        .back-button {
+            width: 100%;
+            padding: 13px;
+            font-size: 15px;
+        }
+
+        .suggestions h3 {
+            font-size: 22px;
+        }
+
+        .suggestion-book {
+            min-width: 150px;
+        }
+
+        .suggestion-book img {
+            height: 190px;
+        }
+    }
+</style>
 
 <div class="container">
 
@@ -193,6 +283,7 @@
         <div class="book-info-part">
 
             <h1>{{ book.title }}</h1>
+
             <p>by {{ book.author }}</p>
 
             <div class="description-box">
@@ -207,8 +298,18 @@
             </div>
 
             <div class="action-buttons">
-                <button class="borrow-button">Borrow Now</button>
-                <button class="back-button" onclick="history.back()">Back</button>
+
+                <button class="borrow-button">
+                    Borrow Now
+                </button>
+
+                <button class="back-button"
+                        onclick="history.back()">
+
+                    Back
+
+                </button>
+
             </div>
 
         </div>
@@ -216,24 +317,29 @@
     </div>
 
     <div class="suggestions">
-        <h3 style="color:white;">Books you might like</h3>
+
+        <h3>Books you might like</h3>
 
         <div class="suggestion-grid">
 
             {% for suggested in suggested_books %}
-            <div class="suggestion-book"
-                 onclick="window.location.href='/details/{{ suggested.id }}/'">
 
-                <img src="{{ suggested.image.url }}">
+            <a href="{% url 'book_details' suggested.id %}"
+               class="suggestion-book">
+
+                <img src="{{ suggested.image.url }}"
+                     alt="{{ suggested.title }}">
+
                 <p>{{ suggested.title }}</p>
 
-            </div>
+            </a>
+
             {% endfor %}
 
         </div>
+
     </div>
 
 </div>
 
-</body>
-</html>
+{% endblock %}
