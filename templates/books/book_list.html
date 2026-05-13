@@ -206,15 +206,26 @@
     {% for book in books %}
     <div class="book-card">
 
-      {% if book.image %}
-        <img class="book-cover" src="{{ book.image.url }}" alt="{{ book.title }}">
-      {% else %}
-        <div class="book-cover-placeholder">📖</div>
-      {% endif %}
+      <a href="{% url 'book_details' book.id %}">
+
+        {% if book.image %}
+          <img class="book-cover"
+               src="{{ book.image.url }}"
+               alt="{{ book.title }}">
+        {% else %}
+          <div class="book-cover-placeholder">📖</div>
+        {% endif %}
+      
+      </a>
 
       <div class="book-body">
         <span class="book-category">{{ book.category }}</span>
-        <h3 class="book-title">{{ book.title }}</h3>
+        <h3 class="book-title">
+          <a href="{% url 'book_details' book.id %}"
+             style="color:white; text-decoration:none;">
+              {{ book.title }}
+          </a>
+        </h3>
         <p class="book-author">{{ book.author }} · {{ book.year }}</p>
         <p class="book-copies {% if book.copies == 0 %}out{% endif %}">
           {% if book.copies > 0 %}{{ book.copies }} cop{{ book.copies|pluralize:"y,ies" }} available

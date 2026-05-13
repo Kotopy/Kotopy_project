@@ -36,7 +36,10 @@
            Books
         </a>
 
-        <a href="#">Search</a>
+        <a href="{% url 'search_books' %}"
+            class="{% if 'search' in request.path %}active{% endif %}">
+             Search
+        </a>
 
         {% if user.is_authenticated %}
             <a href="{% url 'my_library' %}"
