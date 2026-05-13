@@ -2,7 +2,9 @@
 {% load static %}
 
 {% block title %}About{% endblock %}
-
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'core/css/home_about.css' %}">
+{% endblock %}
 {% block content %}
 
 <header class="about-header">
