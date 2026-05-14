@@ -15,25 +15,28 @@
 
       <label for="su-username">Username</label><br>
       <input type="text" id="su-username" name="username" placeholder="Choose a username" minlength="3"><br><br>
+      
+      <label for="su-email">Email</label><br>
+      <input type="email" id="su-email" name="email" placeholder="your@email.com"><br><br>
 
+      <label for="su-firstname">First Name</label><br>
+      <input type="text" id="su-firstname" name="first_name" placeholder="Your first name"><br><br>
+
+      <label for="su-lastname">Last Name</label><br>
+      <input type="text" id="su-lastname" name="last_name" placeholder="Your last name"><br><br>
+      
       <label for="su-password">Password</label><br>
-      <input type="password" id="su-password" name="password1" placeholder="Min 6 characters" minlength="6"><br><br>
+      <input type="password" id="su-password" name="password1" placeholder="Min 8 characters"><br><br>
 
       <label for="su-confirm">Confirm Password</label><br>
       <input type="password" id="su-confirm" name="password2" placeholder="Repeat your password"><br><br>
-
-      <div class="radio">
-        <input type="radio" id="role-user"  name="role" value="user"  checked>
-        <label for="role-user">User</label>
-
-        <input type="radio" id="role-admin" name="role" value="admin">
-        <label for="role-admin">Admin</label>
-      </div>
+      
+      
 
       {% if form.errors %}
         {% for field in form %}
           {% for error in field.errors %}
-            <p style="color: salmon; text-align: center;">{{ error }}</p>
+            <p style="color: salmon; text-align: center;">{{field.name}}:{{ error }}</p>
           {% endfor %}
         {% endfor %}
       {% endif %}
