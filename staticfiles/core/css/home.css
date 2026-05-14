@@ -1,0 +1,132 @@
+/* =========================
+   HOME HEADER
+========================= */
+
+.home-header {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    padding: 0 80px;
+}
+
+header h1 {
+    font-size: 60px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+header p {
+    max-width: 500px;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.home-image {
+    width: 600px;
+    max-width: 100%;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    margin-left: 20px;
+    background: white;
+    color: rgba(28, 1, 38, 0.919);
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    font-weight: 900;
+    transition: 0.3s;
+    letter-spacing: 0.5px;
+}
+
+.btn:hover {
+    background: rgba(35, 1, 46, 0.7);
+    color: white;
+    transform: scale(1.05);
+}
+
+/* =========================
+   BOTTOM SECTION
+========================= */
+
+.bottom {
+    padding: 40px 20px;
+    text-align: center;
+    color: rgba(35, 1, 46, 0.7);
+}
+
+.bottom h2 {
+    margin-bottom: 30px;
+    font-size: 28px;
+}
+
+.bottom .btn {
+    margin-top: 20px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+    .home-header {
+        padding: 0 40px;
+        gap: 20px;
+    }
+
+    header h1 {
+        font-size: 42px;
+    }
+
+    .home-image {
+        width: 400px;
+    }
+}
+
+@media (max-width: 600px) {
+    .home-header {
+        flex-direction: column;
+        height: auto;
+        padding: 40px 20px;
+        text-align: center;
+        align-items: center;
+    }
+
+    header h1 {
+        font-size: 32px;
+    }
+
+    header p {
+        font-size: 14px;
+    }
+
+    .home-image {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .btn {
+        margin-left: 0;
+        margin-top: 10px;
+        padding: 10px 24px;
+    }
+
+    .bottom {
+        padding: 30px 16px;
+    }
+
+    .bottom h2 {
+        font-size: 22px;
+    }
+    .home-header > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+}
