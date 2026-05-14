@@ -60,7 +60,13 @@
       <label for="su-confirm">Confirm Password</label><br>
       <input type="password" id="su-confirm" name="password2" placeholder="Repeat your password"><br><br>
       
-      
+      <div class="radio">
+          <input type="radio" id="role-user" name="role" value="user" checked>
+          <label for="role-user">User</label>
+
+          <input type="radio" id="role-admin" name="role" value="admin">
+          <label for="role-admin">Admin</label>
+      </div>
 
       {% if form.errors %}
         {% for field in form %}
