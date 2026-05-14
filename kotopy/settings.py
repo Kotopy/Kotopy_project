@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'books.apps.BooksConfig',
     'core.apps.CoreConfig',
     'auth_app.apps.AuthAppConfig',
+    'cloudinary_storage',
+        'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -137,3 +139,20 @@ STATICFILES_DIRS = [
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+# =========================
+# CLOUDINARY SETTINGS
+# =========================
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'your_name',
+    'API_KEY': 'your_key',
+    'API_SECRET': 'your_secret',
+}
