@@ -83,6 +83,12 @@ def my_library(request):
         'page': 'my_library',
     })
 
+
+
+
+
+
+
 def search_books(request):
     title = request.GET.get('title', '').strip()
     author = request.GET.get('author', '').strip()
