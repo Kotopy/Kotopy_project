@@ -2,15 +2,14 @@
    NAVBAR
 ========================= */
 
-nav {
+.navbar {
     width: 100%;
     display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     padding: 16px 40px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 16px;
+    position: relative;
 }
 
 .nav-brand {
@@ -20,8 +19,6 @@ nav {
     display: flex;
     align-items: center;
     gap: 10px;
-    flex-shrink: 0;
-    white-space: nowrap;
 }
 
 .nav-brand img {
@@ -29,19 +26,22 @@ nav {
     height: 30px;
 }
 
+/* LINKS DESKTOP */
 .nav-links {
     display: flex;
     align-items: center;
-    flex-wrap: nowrap;
+    gap: 24px;
 }
 
-.nav-links a {
-    color: rgba(255, 255, 255, 0.7);
+.nav-links a,
+.logout-btn {
+    color: rgba(255,255,255,0.7);
     text-decoration: none;
-    margin-left: 24px;
-    font-weight: 400;
-    transition: color 0.2s;
-    white-space: nowrap;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.2s;
 }
 
 .nav-links a:hover,
@@ -50,43 +50,76 @@ nav {
     font-weight: 600;
 }
 
+/* HAMBURGER ICON */
+.hamburger {
+    display: none;
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+}
+
 /* =========================
-   RESPONSIVE
+   MOBILE
 ========================= */
 
 @media (max-width: 600px) {
-    nav {
-        padding: 8px 12px;
-        overflow: hidden;
+
+    .hamburger {
+        display: block;
+    }
+
+    .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 16px;
+    left: 16px;
+
+ 
+    background: linear-gradient(
+    135deg,
+     rgba(25, 10, 70, 0.919),
+    rgba(10, 25, 60, 0.9)
+    rgba(48, 21, 116, 0.892),
+   
+);
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px);
+
+    flex-direction: column;
+
+    padding: 16px;
+    border-radius : 0 0  14px 14px  ;
+
+    gap: 12px;
+
+    z-index: 1000;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.08);
+}
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links a,
+    .logout-btn {
+        width: 100%;
+        text-align: left;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .nav-links a:hover {
+        background: rgba(255,255,255,0.08);
     }
 
     .nav-brand {
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .nav-brand img {
         width: 18px;
         height: 18px;
-    }
-
-    .nav-links {
-        overflow-x: auto;
-        scrollbar-width: none;
-        gap: 0;
-    }
-
-    .nav-links::-webkit-scrollbar {
-        display: none;
-    }
-
-    .nav-links a {
-        font-size: 11px;
-        margin-left: 8px;
-    }
-
-    .nav-links button {
-        font-size: 11px !important;
-        white-space: nowrap;
-        margin-left: 8px !important;
     }
 }
