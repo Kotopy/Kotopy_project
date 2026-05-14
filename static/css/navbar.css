@@ -1,0 +1,92 @@
+/* =========================
+   NAVBAR
+========================= */
+
+nav {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 16px;
+}
+
+.nav-brand {
+    color: white;
+    font-weight: 700;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.nav-brand img {
+    width: 30px;
+    height: 30px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.nav-links a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    margin-left: 24px;
+    font-weight: 400;
+    transition: color 0.2s;
+    white-space: nowrap;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: white;
+    font-weight: 600;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 600px) {
+    nav {
+        padding: 8px 12px;
+        overflow: hidden;
+    }
+
+    .nav-brand {
+        font-size: 14px;
+    }
+
+    .nav-brand img {
+        width: 18px;
+        height: 18px;
+    }
+
+    .nav-links {
+        overflow-x: auto;
+        scrollbar-width: none;
+        gap: 0;
+    }
+
+    .nav-links::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-links a {
+        font-size: 11px;
+        margin-left: 8px;
+    }
+
+    .nav-links button {
+        font-size: 11px !important;
+        white-space: nowrap;
+        margin-left: 8px !important;
+    }
+}
