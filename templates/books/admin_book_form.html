@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ action }} Book — Kotoby Admin{% endblock %}
+
+{% block extra_css %}
+<style>
+  .form-page {
+    min-height: calc(100vh - 120px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1.5rem;
+  }
+  .form-card {
+    width: 100%;
+    max-width: 560px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 24px;
+    padding: 2.5rem;
+  }
+  .form-card h2 {
+    color: white;
+    font-family: 'Georgia', serif;
+    font-size: 1.8rem;
+    margin: 0 0 0.3rem;
+  }
+  .form-card .subtitle {
+    color: rgba(255,255,255,0.45);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    margin-bottom: 2rem;
+  }
+  .field { margin-bottom: 1.2rem; }
+  .field label {
+    display: block;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    margin-bottom: 6px;
+  }
+  .field input, .field select, .field textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    color: white;
+    padding: 0.6rem 0.9rem;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+    transition: border-color .2s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none;
+    border-color: rgba(255,255,255,0.5);
+  }
+  .field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,0.3); }
+  .field select option { background: #1a1a2e; }
+  .field textarea { resize: vertical; min-height: 90px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.8rem;
+  }
+  .btn-save {
+    flex: 1;
+    padding: 0.7rem;
+    background: white;
+    color: #3a018a;
+    border: none;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .btn-save:hover { background: #e8d5ff; }
+  .btn-cancel {
+    padding: 0.7rem 1.5rem;
+    background: transparent;
+    color: rgba(255,255,255,0.6);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 999px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: all .2s;
+  }
+  .btn-cancel:hover { background: rgba(255,255,255,0.08); color: white; }
+  .current-img { margin-top: 6px; }
+  .current-img img { height: 60px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,.4); }
+  .current-img span { font-size: 0.78rem; color: rgba(255,255,255,0.4); display: block; margin-bottom: 4px; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="form-page">
+  <div class="form-card">
+    <p class="subtitle">Admin Panel</p>
+    <h2>{{ action }} Book</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <div class="two-col">
+        <div class="field">
+          <label>Book Code *</label>
+          <input type="text" name="code" value="{{ book.code|default:'' }}" placeholder="e.g. BK001" required>
+        </div>
+        <div class="field">
+          <label>Year *</label>
+          <input type="number" name="year" value="{{ book.year|default:'' }}" placeholder="2024" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Title *</label>
+        <input type="text" name="title" value="{{ book.title|default:'' }}" placeholder="Book title" required>
+      </div>
+
+      <div class="field">
+        <label>Author *</label>
+        <input type="text" name="author" value="{{ book.author|default:'' }}" placeholder="Author name" required>
+      </div>
+
+      <div class="two-col">
+        <div class="field">
+          <label>Category *</label>
+          <select name="category" required>
+            {% for val, label in categories %}
+            <option value="{{ val }}" {% if book.category == val %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="field">
+          <label>Copies *</label>
+          <input type="number" name="copies" value="{{ book.copies|default:'1' }}" min="0" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Description *</label>
+        <textarea name="description" placeholder="Short description…" required>{{ book.description|default:'' }}</textarea>
+      </div>
+
+      <div class="field">
+        <label>Cover Image</label>
+        {% if book.image %}
+        <div class="current-img">
+          <span>Current cover:</span>
+          <img src="{{ book.image.url }}" alt="cover">
+        </div>
+        {% endif %}
+        <input type="file" name="image" accept="image/*">
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-save">{{ action }} Book</button>
+        <a href="{% url 'admin_dashboard' %}" class="btn-cancel">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

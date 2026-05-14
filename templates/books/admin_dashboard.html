@@ -1,0 +1,316 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Admin Panel — Kotoby{% endblock %}
+
+{% block extra_css %}
+<style>
+  .admin-page {
+    min-height: calc(100vh - 120px);
+    padding: 2.5rem 2rem 5rem;
+  }
+
+  .admin-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ── Page header ── */
+  .admin-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .admin-title {
+    font-family: 'Georgia', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: white;
+    margin: 0;
+  }
+  .admin-title span { color: rgba(255,255,255,0.4); font-size: 1rem; font-family: monospace; display: block; margin-bottom: 4px; text-transform: uppercase; letter-spacing: .1em; }
+
+  /* ── Stat cards ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 16px;
+    padding: 1.2rem 1.4rem;
+    text-align: center;
+  }
+  .stat-card .num { font-size: 2rem; font-weight: 800; color: white; }
+  .stat-card .lbl { font-size: 0.75rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: .08em; margin-top: 4px; }
+  .stat-card.danger .num { color: #ff6b6b; }
+  .stat-card.success .num { color: #6bffb8; }
+
+  /* ── Toolbar ── */
+  .toolbar {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  .toolbar form { display: flex; gap: 0.5rem; flex-wrap: wrap; flex: 1; }
+  .search-input {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.08);
+    color: white;
+    font-size: 0.85rem;
+  }
+  .search-input::placeholder { color: rgba(255,255,255,0.4); }
+  .search-input:focus { outline: none; border-color: rgba(255,255,255,0.5); }
+  .filter-select {
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.08);
+    color: white;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+  .filter-select option { background: #1a1a2e; color: white; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.5rem 1.2rem;
+    border-radius: 999px;
+    border: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-primary { background: white; color: #3a018a; }
+  .btn-primary:hover { background: #e8d5ff; }
+  .btn-search { background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.3); }
+  .btn-search:hover { background: rgba(255,255,255,0.25); }
+
+  /* ── Table ── */
+  .table-wrap {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  table { width: 100%; border-collapse: collapse; }
+  thead th {
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.6);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    padding: 0.9rem 1.1rem;
+    text-align: left;
+    white-space: nowrap;
+  }
+  tbody tr { border-bottom: 1px solid rgba(255,255,255,0.06); transition: background .15s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: rgba(255,255,255,0.05); }
+  tbody td { padding: 0.85rem 1.1rem; color: white; font-size: 0.88rem; vertical-align: middle; }
+
+  .book-cover { width: 36px; height: 48px; object-fit: cover; border-radius: 4px; box-shadow: 0 2px 6px rgba(0,0,0,.4); }
+  .no-cover { width: 36px; height: 48px; background: rgba(255,255,255,0.1); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .book-code { font-family: monospace; font-size: 0.78rem; color: rgba(255,255,255,0.5); }
+  .book-title { font-weight: 600; }
+  .book-author { font-size: 0.8rem; color: rgba(255,255,255,0.55); }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+  }
+  .badge-available { background: rgba(107,255,184,0.15); color: #6bffb8; border: 1px solid rgba(107,255,184,0.3); }
+  .badge-low       { background: rgba(255,193,7,0.15);  color: #ffd54f; border: 1px solid rgba(255,193,7,0.3); }
+  .badge-out       { background: rgba(255,107,107,0.15); color: #ff6b6b; border: 1px solid rgba(255,107,107,0.3); }
+
+  .cat-pill {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.7);
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+
+  /* ── Action buttons ── */
+  .actions { display: flex; gap: 6px; }
+  .btn-edit {
+    padding: 5px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.08);
+    color: white;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all .2s;
+  }
+  .btn-edit:hover { background: rgba(255,255,255,0.2); }
+  .btn-delete {
+    padding: 5px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,107,107,0.4);
+    background: rgba(255,107,107,0.1);
+    color: #ff6b6b;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all .2s;
+  }
+  .btn-delete:hover { background: rgba(255,107,107,0.25); }
+
+  /* ── Messages ── */
+  .messages { list-style: none; padding: 0; margin-bottom: 1.5rem; }
+  .messages li {
+    padding: 0.75rem 1.2rem;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    font-size: 0.88rem;
+    font-weight: 500;
+  }
+  .messages .success { background: rgba(107,255,184,0.12); color: #6bffb8; border: 1px solid rgba(107,255,184,0.3); }
+  .messages .error   { background: rgba(255,107,107,0.12); color: #ff6b6b; border: 1px solid rgba(255,107,107,0.3); }
+
+  /* ── Empty state ── */
+  .empty { text-align: center; padding: 3rem; color: rgba(255,255,255,0.4); font-size: 0.95rem; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="admin-page">
+  <div class="admin-inner">
+
+    <!-- Header -->
+    <div class="admin-header">
+      <h1 class="admin-title">
+        <span>Admin Panel</span>
+        Book Management
+      </h1>
+      <a href="{% url 'admin_add_book' %}" class="btn btn-primary">＋ Add New Book</a>
+    </div>
+
+    <!-- Messages -->
+    {% if messages %}
+    <ul class="messages">
+      {% for msg in messages %}
+      <li class="{{ msg.tags }}">{{ msg }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="num">{{ total_books }}</div>
+        <div class="lbl">Total Books</div>
+      </div>
+      <div class="stat-card success">
+        <div class="num">{{ total_copies }}</div>
+        <div class="lbl">Total Copies</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">{{ total_borrowed }}</div>
+        <div class="lbl">Currently Borrowed</div>
+      </div>
+      <div class="stat-card danger">
+        <div class="num">{{ out_of_stock }}</div>
+        <div class="lbl">Out of Stock</div>
+      </div>
+    </div>
+
+    <!-- Toolbar: search + filter -->
+    <div class="toolbar">
+      <form method="GET">
+        <input class="search-input" type="text" name="search" placeholder="🔍  Search title or author…" value="{{ search }}">
+        <select class="filter-select" name="category">
+          <option value="">All Categories</option>
+          {% for val, label in categories %}
+          <option value="{{ val }}" {% if selected_category == val %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+        <button type="submit" class="btn btn-search">Filter</button>
+        {% if search or selected_category %}
+        <a href="{% url 'admin_dashboard' %}" class="btn btn-search">✕ Clear</a>
+        {% endif %}
+      </form>
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Cover</th>
+            <th>Code</th>
+            <th>Title / Author</th>
+            <th>Category</th>
+            <th>Year</th>
+            <th>Copies</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for book in books %}
+          <tr>
+            <td>
+              {% if book.image %}
+              <img class="book-cover" src="{{ book.image.url }}" alt="{{ book.title }}">
+              {% else %}
+              <div class="no-cover">📖</div>
+              {% endif %}
+            </td>
+            <td><span class="book-code">{{ book.code }}</span></td>
+            <td>
+              <div class="book-title">{{ book.title }}</div>
+              <div class="book-author">{{ book.author }}</div>
+            </td>
+            <td><span class="cat-pill">{{ book.category }}</span></td>
+            <td>{{ book.year }}</td>
+            <td><strong>{{ book.copies }}</strong></td>
+            <td>
+              {% if book.copies == 0 %}
+              <span class="badge badge-out">Out of Stock</span>
+              {% elif book.copies <= 2 %}
+              <span class="badge badge-low">Low Stock</span>
+              {% else %}
+              <span class="badge badge-available">Available</span>
+              {% endif %}
+            </td>
+            <td>
+              <div class="actions">
+                <a href="{% url 'admin_edit_book' book.id %}" class="btn-edit">✏ Edit</a>
+                <a href="{% url 'admin_delete_book' book.id %}" class="btn-delete">🗑 Delete</a>
+              </div>
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="8" class="empty">No books found.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

@@ -50,6 +50,12 @@
             <a href="{% url 'my_library' %}">My Library</a>
             <a href="{% url 'profile' %}">Profile</a>
 
+            {% if user.is_staff %}
+            <a href="{% url 'admin_dashboard' %}" class="admin-nav-btn {% if 'admin-panel' in request.path %}active{% endif %}">
+                ⚙ Admin Panel
+            </a>
+            {% endif %}
+
             <form method="POST" action="{% url 'logout' %}">
                 {% csrf_token %}
                 <button type="submit" class="logout-btn">Logout</button>
