@@ -5,17 +5,9 @@
       "src": "kotopy/wsgi.py",
       "use": "@vercel/python",
       "config": { "runtime": "python3.12" }
-    },
-    {
-      "src": "core/static/**",
-      "use": "@vercel/static"
     }
   ],
   "routes": [
-    {
-      "src": "/static/(.*)",
-      "dest": "core/static/$1"
-    },
     {
       "src": "/(.*)",
       "dest": "kotopy/wsgi.py"
