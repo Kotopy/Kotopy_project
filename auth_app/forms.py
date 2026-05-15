@@ -6,7 +6,7 @@ class NewSignupForm(UserCreationForm):
     email = forms.EmailField(required=True)
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
-    role = forms.ChoiceField(choices=[('user', 'User'), ('admin', 'Admin')], required=True)
+    role = forms.ChoiceField(choices=[('user', 'User'), ('admin', 'Admin')], required=False)
 
     class Meta:
         model = User
@@ -17,11 +17,6 @@ class NewSignupForm(UserCreationForm):
         user.email = self.cleaned_data['email']
         user.first_name = self.cleaned_data['first_name']  
         user.last_name = self.cleaned_data['last_name']    
-
-        role = self.cleaned_data.get('role', 'user')
-        if role == 'admin':
-            user.is_staff = True
-            user.is_superuser = True
 
         if commit:
             user.save()
