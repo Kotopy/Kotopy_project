@@ -21,7 +21,7 @@ def fix_image_paths():
                     os.rename(old_path, new_path)
                     print(f"File renamed: {filename} -> {new_filename}")
                 else:
-                    print(f"File not found on disk: {old_path}")
+                    print(f"File not found : {old_path}")
                 
                 relative_dir = os.path.dirname(book.image.name)
                 book.image.name = os.path.join(relative_dir, new_filename).replace('\\', '/')
@@ -29,6 +29,6 @@ def fix_image_paths():
                 count += 1
                 print(f"Database updated for book ID {book.id}: {book.image.name}")
 
-    print(f"Total fixed: {count}")
+    print(f" fixed: {count}")
 
 fix_image_paths()
