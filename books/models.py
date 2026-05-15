@@ -1,7 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
+
+def get_image_path(instance, filename):
+    ext = filename.split('.')[-1]
+    safe_filename = f"{instance.code}.{ext}"
+    return os.path.join('books/', safe_filename)
+
+
 # Create your models here.
+
 
 
 class Book(models.Model):
