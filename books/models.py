@@ -28,7 +28,9 @@ class Book(models.Model):
     year = models.IntegerField()
     copies = models.IntegerField()
     description = models.TextField()
-    image = models.ImageField(upload_to='books/')
+    image = models.ImageField(upload_to=get_image_path) 
+
+    
 
     def __str__(self):
         return self.title
