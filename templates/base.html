@@ -30,40 +30,64 @@
 
     <div class="nav-links" id="navLinks">
 
-        <a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% endif %}">
+        <a href="{% url 'home' %}" 
+           class="{% if request.path == '/' %}active{% endif %}">
             Home
         </a>
 
-        <a href="{% url 'about' %}" class="{% if request.path == '/about/' %}active{% endif %}">
+        <a href="{% url 'about' %}" 
+           class="{% if '/about/' in request.path %}active{% endif %}">
             About
         </a>
 
-        <a href="{% url 'book_list' %}" class="{% if '/books/' in request.path %}active{% endif %}">
+        <a href="{% url 'book_list' %}" 
+           class="{% if '/books/' in request.path %}active{% endif %}">
             Books
         </a>
 
-        <a href="{% url 'search_books' %}" class="{% if 'search' in request.path %}active{% endif %}">
+        <a href="{% url 'search_books' %}" 
+           class="{% if 'search' in request.path %}active{% endif %}">
             Search
         </a>
 
         {% if user.is_authenticated %}
-            <a href="{% url 'my_library' %}">My Library</a>
-            <a href="{% url 'profile' %}">Profile</a>
+
+            <a href="{% url 'my_library' %}" 
+               class="{% if 'library' in request.path %}active{% endif %}">
+                My Library
+            </a>
+
+            <a href="{% url 'profile' %}" 
+               class="{% if 'profile' in request.path %}active{% endif %}">
+                Profile
+            </a>
 
             {% if user.is_staff %}
-            <a href="{% url 'admin_dashboard' %}" class="admin-nav-btn {% if 'admin-panel' in request.path %}active{% endif %}">
+            <a href="{% url 'admin_dashboard' %}" 
+               class="admin-nav-btn {% if 'admin-panel' in request.path %}active{% endif %}">
                 ⚙ Admin Panel
             </a>
             {% endif %}
 
             <form method="POST" action="{% url 'logout' %}">
                 {% csrf_token %}
-                <button type="submit" class="logout-btn">Logout</button>
+                <button type="submit" class="logout-btn">
+                    Logout
+                </button>
             </form>
 
         {% else %}
-            <a href="{% url 'login' %}">Log In</a>
-            <a href="{% url 'signup' %}">Sign Up</a>
+
+            <a href="{% url 'login' %}" 
+               class="{% if 'login' in request.path %}active{% endif %}">
+                Log In
+            </a>
+
+            <a href="{% url 'signup' %}" 
+               class="{% if 'signup' in request.path %}active{% endif %}">
+                Sign Up
+            </a>
+
         {% endif %}
 
     </div>
@@ -77,7 +101,7 @@
     <p>© 2026 Online Library. All Rights Reserved.</p>
 </footer>
 
-<!-- JS -->
+ 
 <script>
 function toggleMenu() {
     document.getElementById("navLinks").classList.toggle("active");

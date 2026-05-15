@@ -83,7 +83,7 @@
     rgba(48, 21, 116, 0.892),
    
 );
-    backdrop-filter: blur(10px); 
+    backdrop-filter: blur(15px); 
     -webkit-backdrop-filter: blur(10px);
 
     flex-direction: column;
