@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 from .models import Book, BorrowedBook
+import os
 
 def is_admin(user):
     return user.is_authenticated and (
@@ -41,6 +42,8 @@ def admin_dashboard(request):
     })
 
 
+@login_required
+@admin_required
 @login_required
 @admin_required
 def admin_add_book(request):
