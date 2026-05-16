@@ -239,55 +239,61 @@
 
     /* ===== Mobile ===== */
 
-    @media (max-width: 600px) {
+ @media (max-width: 600px) {
 
-        .container {
-            margin-top: 55px;
-            padding: 12px;
-        }
-
-        .book-details-main {
-            padding: 18px;
-            border-radius: 15px;
-        }
-
-        .book-cover-part img {
-            max-width: 220px;
-        }
-
-        .book-info-part h1 {
-            font-size: 28px;
-        }
-
-        .book-info-part p,
-        .description-box,
-        .details-book p {
-            font-size: 14px;
-        }
-
-        .action-buttons {
-            flex-direction: column;
-        }
-
-        .borrow-button,
-        .back-button {
-            width: 100%;
-            padding: 13px;
-            font-size: 15px;
-        }
-
-        .suggestions h3 {
-            font-size: 22px;
-        }
-
-        .suggestion-book {
-            min-width: 150px;
-        }
-
-        .suggestion-book img {
-            height: 190px;
-        }
+    .book-details-main {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
     }
+
+    .book-cover-part {
+        flex: 0 0 40%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .book-cover-part img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .book-info-part {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .book-info-part h1 {
+        font-size: 22px;
+        margin-bottom: 5px;
+    }
+
+    .description-box {
+        display: none;
+    }
+
+    .details-book {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 10px;
+    }
+
+    .borrow-button,
+    .back-button {
+        font-size: 13px;
+        padding: 10px;
+    }
+}
 </style>
 
 <div class="container">
