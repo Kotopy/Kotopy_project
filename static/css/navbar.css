@@ -80,7 +80,7 @@
     135deg,
      rgba(25, 10, 70, 0.919),
     rgba(10, 25, 60, 0.9)
-    rgba(48, 21, 116, 0.892),
+    rgb(48, 21, 116),
    
 );
     backdrop-filter: blur(15px); 
@@ -98,6 +98,7 @@
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     border: 1px solid rgba(255,255,255,0.08);
 }
+
     .nav-links.active {
         display: flex;
     }
@@ -122,4 +123,40 @@
         width: 18px;
         height: 18px;
     }
+}
+.logout-btn {
+    color: rgba(255, 255, 255, 0.993);
+    text-decoration: none;
+    background:     rgba(151, 136, 235, 0.73);
+    border:  2px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.2s;
+    border-radius: 5px;
+}
+.logout-btn:hover{
+     background:      rgba(48, 21, 116, 0.905);
+}
+
+
+.nav-links a
+  {
+    color: rgba(151, 136, 235, 0.7);
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+.nav-links a:hover
+  {
+    color: rgb(151, 136, 235);
+    font-weight: 800;
+}
+
+.nav-links a.active {
+    color: rgb(255, 255, 255);
+    font-weight: 800;
 }
