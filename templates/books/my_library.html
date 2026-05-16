@@ -151,6 +151,71 @@
   }
 
   .browse-btn:hover { background: #9a84c4; color: white; transform: translateY(-2px); }
+
+
+  @media (max-width: 600px) {
+    .library-page {
+        padding: 80px 12px 40px;
+    }
+
+    .books-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    .book-card {
+        padding: 8px;
+        border-radius: 12px;
+    }
+
+    .book-card img,
+.cover-placeholder {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2/3;
+    border-radius: 8px;
+}
+
+    .book-category,
+    .book-author,
+    .borrow-date,
+    .status-badge {
+        display: none;
+    }
+
+    .book-title {
+        font-size: 0.65rem;
+        height: auto;
+        margin-bottom: 6px;
+    }
+
+    .return-btn {
+        font-size: 0.6rem;
+        padding: 6px;
+        border-radius: 8px;
+    }
+
+    .filter-bar {
+        gap: 6px;
+    }
+
+    .filter-btn {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+    }
+    .stats-row {
+    margin-bottom: 1rem;
+}
+
+.stat-chip {
+    padding: 8px 14px;
+}
+
+.stat-chip strong {
+    font-size: 1rem;
+}
+
+}
 </style>
 
 <div class="library-page">
