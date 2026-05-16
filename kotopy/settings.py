@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+import cloudinary
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -152,9 +153,10 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dlp2nwmcz',
-    'API_KEY': '997753996232918',
-    'API_SECRET': 'gqL5XDLJBW4jlWGVXcclOeLBlIM',
-}
+
+cloudinary.config(
+    cloud_name='dlp2nwmcz',
+    api_key='997753996232918',
+    api_secret='gqL5XDLJBW4jlWGVXcclOeLBlIM'
+)
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
