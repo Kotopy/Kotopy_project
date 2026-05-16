@@ -352,12 +352,11 @@
 
     {% else %}
 
-        <a href="/accounts/login/"
-           class="borrow-button"
-           style="text-decoration:none; text-align:center;">
-           Login to Borrow
-        </a>
-
+        <a href="{% url 'login' %}"
+   class="borrow-button"
+   style="text-decoration:none; text-align:center;">
+   Login to Borrow
+</a>
     {% endif %}
 
     <button class="back-button" onclick="history.back()">

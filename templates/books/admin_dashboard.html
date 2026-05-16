@@ -187,8 +187,31 @@
 
   .empty { text-align: center; padding: 3rem; color: rgba(255,255,255,0.4); font-size: 0.95rem; }
 
-  /* ===== Mobile card layout ===== */
+  /* ===== Mobile ===== */
   @media (max-width: 768px) {
+
+    .admin-page { padding: 1.5rem 1rem 3rem; }
+    .admin-header { margin-bottom: 1rem; }
+
+    .stats-row {
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .stat-card {
+    padding: 0.8rem;
+    border-radius: 12px;
+    height: 80px;  /* ← أضيفي السطر ده */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+    .stat-card .num { font-size: 1.4rem; }
+    .stat-card .lbl { font-size: 0.65rem; }
+
     .table-wrap { background: transparent; border: none; border-radius: 0; }
 
     thead { display: none; }
@@ -230,29 +253,7 @@
     tbody td[data-label="Cover"]::before { margin-right: 0; }
 
     .actions { justify-content: flex-end; width: 100%; }
-
     .btn-edit, .btn-delete { padding: 6px 16px; font-size: 0.82rem; }
-
-  .stats-row {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.5rem;
-  max-width: 700px; /* بيصغر عرض السيكشن كله */
-}
-
-.stat-card {
-  padding: 0.4rem 0.5rem;
-  min-height: 90px; /* بدل ما يبقوا طوال */
-  border-radius: 10px;
-}
-
-.stat-card .num {
-  font-size: 0.95rem;
-}
-
-.stat-card .lbl {
-  font-size: 0.48rem;
-}
   }
 </style>
 {% endblock %}
