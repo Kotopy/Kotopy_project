@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
+
 import os
 
 
@@ -28,8 +30,7 @@ class Book(models.Model):
     year = models.IntegerField()
     copies = models.IntegerField()
     description = models.TextField()
-    image = models.ImageField(upload_to=get_image_path) 
-
+    image = CloudinaryField('image', null=True, blank=True)
     
 
     def __str__(self):

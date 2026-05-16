@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+import cloudinary
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -84,7 +85,7 @@ WSGI_APPLICATION = 'kotopy.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='sqlite:///db.sqlite3',
+        default='postgresql://postgres.movvwyoqnrkadnawxpxi:SEYN2024%4020@aws-0-eu-west-1.pooler.supabase.com:6543/postgres',
         conn_max_age=600
     )
 }
@@ -152,9 +153,10 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'your_name',
-    'API_KEY': 'your_key',
-    'API_SECRET': 'your_secret',
-}
+
+cloudinary.config(
+    cloud_name='dlp2nwmcz',
+    api_key='997753996232918',
+    api_secret='gqL5XDLJBW4jlWGVXcclOeLBlIM'
+)
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
