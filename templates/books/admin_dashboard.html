@@ -188,7 +188,7 @@
   .empty { text-align: center; padding: 3rem; color: rgba(255,255,255,0.4); font-size: 0.95rem; }
 
   /* ===== Mobile card layout ===== */
-  @media (max-width: 768px) {
+  @media (max-width: 500px) {
     .table-wrap { background: transparent; border: none; border-radius: 0; }
 
     thead { display: none; }
@@ -232,6 +232,29 @@
     .actions { justify-content: flex-end; width: 100%; }
 
     .btn-edit, .btn-delete { padding: 6px 16px; font-size: 0.82rem; }
+
+  .stats-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  max-width: 700px; /* بيصغر عرض السيكشن كله */
+}
+
+.stat-card {
+  padding: 0.4rem 0.5rem;
+  min-height: 90px; /* بدل ما يبقوا طوال */
+  border-radius: 10px;
+}
+
+.stat-card .num {
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+
+.stat-card .lbl {
+  font-size: 0.5rem;
+  line-height: 1.1;
+}
   }
 </style>
 {% endblock %}
