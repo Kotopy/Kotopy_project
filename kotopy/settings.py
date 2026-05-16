@@ -153,8 +153,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'your_name',
-    'API_KEY': 'your_key',
-    'API_SECRET': 'your_secret',
+    'CLOUD_NAME': 'dlp2nwmcz',
+    'API_KEY': '997753996232918',
+    'API_SECRET': 'gqL5XDLJBW4jlWGVXcclOeLBIIM',
 }
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
