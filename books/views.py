@@ -2,15 +2,14 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Book, BorrowedBook
-from django.shortcuts import render, get_object_or_404
-from .models import Book
+import os
 
 
 def book_list(request):
     """Display all available books with optional category filter."""
-    category = request.GET.get('category', '')
     books = Book.objects.all()
 
+    category = request.GET.get('category', '')
     if category:
         books = books.filter(category=category)
 

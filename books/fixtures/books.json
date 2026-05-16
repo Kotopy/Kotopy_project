@@ -122,7 +122,7 @@
       "year": 2018,
       "copies": 7,
       "description": "دليل عملي لتحسين مهارات التواصل والتحدث بثقة.",
-      "image": "books/fan_al_kalam.jpg"
+      "image": "books/fn_elkalam.jpg"
     }
   },
   {
@@ -136,7 +136,7 @@
       "year": 2019,
       "copies": 6,
       "description": "يساعدك على فهم الشخصيات الصعبة والتعامل معها بذكاء.",
-      "image": "books/muhat_bi_al_marda.jpg"
+      "image": "books/mo7at_b_elmarda_alnafseen.jpg"
     }
   },
   {
@@ -150,7 +150,7 @@
       "year": 2005,
       "copies": 5,
       "description": "تحليل عميق للحالة النفسية في المجتمعات المضغوطة.",
-      "image": "books/psychology_al_insan.jpg"
+      "image": "books/saykologya_alensan_almohaza2.jpg"
     }
   },
   {
@@ -178,7 +178,7 @@
       "year": 2016,
       "copies": 4,
       "description": "يستعرض الفروق بين عقول الرجال والنساء بطريقة علمية مبسطة.",
-      "image": "books/al_mukh.jpg"
+      "image": "books/almo5_zakar_am_ontha.jpg"
     }
   },
   {
@@ -192,7 +192,7 @@
       "year": 2015,
       "copies": 5,
       "description": "شرح مبسط للاضطرابات النفسية وكيفية التعامل معها.",
-      "image": "books/fahm_al_amrad.jpg"
+      "image": "books/fehm_alamrad_alnafseya.jpg"
     }
   },
   {
@@ -206,7 +206,7 @@
       "year": 2017,
       "copies": 5,
       "description": "دليل للحفاظ على التوازن النفسي وتحسين جودة الحياة.",
-      "image": "books/al_sihha_al_nafsiyya.jpg"
+      "image": "books/Alse7alnfseya.jpg"
     }
   },
   {
@@ -234,7 +234,7 @@
       "year": 2022,
       "copies": 4,
       "description": "نظرة مختلفة للحياة والعلاقات من خلال تجارب واقعية.",
-      "image": "books/musta3mal.jpg"
+      "image": "books/mosta3mal.jpg"
     }
   },
   {
@@ -401,7 +401,7 @@
       "category": "Fiction",
       "year": 2016,
       "copies": 8,
-      "description": "الجزء الثاني من أرض زيكولا، حيث تستكمل الرحلة في عالم أماريتا المليء بالغموض والتحديات.",
+      "description": "الجزء الثاني من أرض زيكولا.",
       "image": "books/photo_2_2026-04-11_17-32-35.jpg"
     }
   },
@@ -415,7 +415,7 @@
       "category": "Fiction",
       "year": 2008,
       "copies": 10,
-      "description": "رواية ديستوبية تكشف الفجوة بين الطبقات الاجتماعية في مجتمع قاسٍ ومظلم.",
+      "description": "رواية ديستوبية تكشف الفجوة بين الطبقات الاجتماعية.",
       "image": "books/photo_4_2026-04-11_17-32-35.jpg"
     }
   },
@@ -443,7 +443,7 @@
       "category": "Fiction",
       "year": 2021,
       "copies": 7,
-      "description": "رواية مليئة بالغموض والمشاعر العميقة في عالم من الأسرار والتشويق.",
+      "description": "رواية مليئة بالغموض والمشاعر العميقة.",
       "image": "books/photo_1_2026-04-11_17-32-35.jpg"
     }
   },
@@ -555,7 +555,7 @@
       "category": "Religious",
       "year": 2020,
       "copies": 6,
-      "description": "قصص ومواقف من حياة الصحابة تسلط الضوء على القيم الإيمانية والإنسانية.",
+      "description": "قصص ومواقف من حياة الصحابة.",
       "image": "books/wa_alzen_ma3ah.jpg"
     }
   },
@@ -612,7 +612,7 @@
       "year": 2013,
       "copies": 6,
       "description": "Introduction to networking concepts, protocols, and infrastructure.",
-      "image": "books/network book1.jpeg"
+      "image": "books/network_book1.jpeg"
     }
   },
   {
@@ -626,7 +626,7 @@
       "year": 2009,
       "copies": 9,
       "description": "One of the most important books in algorithms and problem solving.",
-      "image": "books/OIP (1).webp"
+      "image": "books/OIP_1.webp"
     }
   },
   {
@@ -682,7 +682,7 @@
       "year": 2023,
       "copies": 6,
       "description": "Practical guide to building and deploying AI systems.",
-      "image": "books/ai engineering.jpg"
+      "image": "books/ai_engineering.jpg"
     }
   },
   {
