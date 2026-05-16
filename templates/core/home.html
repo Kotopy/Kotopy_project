@@ -30,7 +30,6 @@
 <section class="bottom">
     <h2>Join Our Library Today</h2>
     <p>Create an account to explore and borrow books.</p>
-    <button class="btn">Get Started</button>
-</section>
+    <button onclick="window.location.href='{% url 'signup' %}'" {% if request.resolver_match.url_name == 'signup' %}class="btn active"{% else %}class="btn"{% endif %}>Get Started</button></section>
 
 {% endblock %}
