@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'kotopy.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='sqlite:///db.sqlite3',
+        default='postgresql://postgres.movvwyoqnrkadnawxpxi:SEYN2024%4020@aws-0-eu-west-1.pooler.supabase.com:6543/postgres',
         conn_max_age=600
     )
 }
