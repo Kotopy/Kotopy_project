@@ -163,11 +163,6 @@
         gap: 10px;
     }
 
-    .book-card {
-        padding: 8px;
-        border-radius: 12px;
-    }
-
     .book-card img,
 .cover-placeholder {
     width: 100%;
@@ -183,11 +178,6 @@
         display: none;
     }
 
-    .book-title {
-        font-size: 0.65rem;
-        height: auto;
-        margin-bottom: 6px;
-    }
 
     .return-btn {
         font-size: 0.6rem;
@@ -214,7 +204,16 @@
 .stat-chip strong {
     font-size: 1rem;
 }
+.book-card {
+    justify-content: space-between;
+}
 
+.book-title {
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 }
 </style>
 
