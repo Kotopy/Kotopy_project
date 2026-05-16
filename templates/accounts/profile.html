@@ -269,7 +269,13 @@
         <span class="stat-label">Books Borrowed</span>
       </div>
       <div class="stat-card">
-        <span class="stat-number">{{ profile.role|title }}</span>
+        <span class="stat-number">
+          {% if user.is_superuser %}
+            Admin
+          {% else %}
+            {{ profile.role|title }}
+          {% endif %}
+        </span>
         <span class="stat-label">Account Type</span>
       </div>
     </div>
