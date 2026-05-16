@@ -9,11 +9,16 @@
   ],
   "routes": [
     {
+      "src": "/static/(.*)",
+      "dest": "/staticfiles/$1"
+    },
+    {
       "src": "/(.*)",
       "dest": "kotopy/wsgi.py"
     }
   ],
   "env": {
     "DJANGO_SETTINGS_MODULE": "kotopy.settings"
-  }
+  },
+  "buildCommand": "python manage.py collectstatic --noinput"
 }
