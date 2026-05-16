@@ -216,8 +216,9 @@
             {% endif %}
           </h1>
           <p class="profile-username">@{{ user.username }}</p>
-          <span class="role-badge {{ profile.role }}">{{ profile.get_role_display }}</span>
-        </div>
+<span class="role-badge {% if user.is_superuser %}admin{% else %}{{ profile.role }}{% endif %}">
+  {% if user.is_superuser %}Admin{% else %}{{ profile.get_role_display }}{% endif %}
+</span>        </div>
       </div>
 
       <!-- Info rows -->
