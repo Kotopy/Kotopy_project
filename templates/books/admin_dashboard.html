@@ -14,7 +14,6 @@
     margin: 0 auto;
   }
 
-  /* ── Page header ── */
   .admin-header {
     display: flex;
     align-items: flex-end;
@@ -31,7 +30,6 @@
   }
   .admin-title span { color: rgba(255,255,255,0.4); font-size: 1rem; font-family: monospace; display: block; margin-bottom: 4px; text-transform: uppercase; letter-spacing: .1em; }
 
-  /* ── Stat cards ── */
   .stats-row {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -50,7 +48,6 @@
   .stat-card.danger .num { color: #ff6b6b; }
   .stat-card.success .num { color: #6bffb8; }
 
-  /* ── Toolbar ── */
   .toolbar {
     display: flex;
     gap: 0.75rem;
@@ -99,7 +96,6 @@
   .btn-search { background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.3); }
   .btn-search:hover { background: rgba(255,255,255,0.25); }
 
-  /* ── Table ── */
   .table-wrap {
     background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.12);
@@ -150,7 +146,6 @@
     border: 1px solid rgba(255,255,255,0.15);
   }
 
-  /* ── Action buttons ── */
   .actions { display: flex; gap: 6px; }
   .btn-edit {
     padding: 5px 14px;
@@ -179,7 +174,6 @@
   }
   .btn-delete:hover { background: rgba(255,107,107,0.25); }
 
-  /* ── Messages ── */
   .messages { list-style: none; padding: 0; margin-bottom: 1.5rem; }
   .messages li {
     padding: 0.75rem 1.2rem;
@@ -191,8 +185,54 @@
   .messages .success { background: rgba(107,255,184,0.12); color: #6bffb8; border: 1px solid rgba(107,255,184,0.3); }
   .messages .error   { background: rgba(255,107,107,0.12); color: #ff6b6b; border: 1px solid rgba(255,107,107,0.3); }
 
-  /* ── Empty state ── */
   .empty { text-align: center; padding: 3rem; color: rgba(255,255,255,0.4); font-size: 0.95rem; }
+
+  /* ===== Mobile card layout ===== */
+  @media (max-width: 768px) {
+    .table-wrap { background: transparent; border: none; border-radius: 0; }
+
+    thead { display: none; }
+
+    tbody tr {
+      display: block;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 1rem;
+      background: rgba(255,255,255,0.06);
+    }
+
+    tbody tr:hover { background: rgba(255,255,255,0.09); }
+
+    tbody td {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.45rem 0;
+      border: none;
+      font-size: 0.85rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    tbody td:last-child { border-bottom: none; }
+
+    tbody td::before {
+      content: attr(data-label);
+      color: rgba(255,255,255,0.45);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      flex-shrink: 0;
+      margin-right: 1rem;
+    }
+
+    tbody td[data-label="Cover"] { justify-content: flex-start; gap: 1rem; }
+    tbody td[data-label="Cover"]::before { margin-right: 0; }
+
+    .actions { justify-content: flex-end; width: 100%; }
+
+    .btn-edit, .btn-delete { padding: 6px 16px; font-size: 0.82rem; }
+  }
 </style>
 {% endblock %}
 
@@ -200,7 +240,6 @@
 <div class="admin-page">
   <div class="admin-inner">
 
-    <!-- Header -->
     <div class="admin-header">
       <h1 class="admin-title">
         <span>Admin Panel</span>
@@ -209,7 +248,6 @@
       <a href="{% url 'admin_add_book' %}" class="btn btn-primary">＋ Add New Book</a>
     </div>
 
-    <!-- Messages -->
     {% if messages %}
     <ul class="messages">
       {% for msg in messages %}
@@ -218,7 +256,6 @@
     </ul>
     {% endif %}
 
-    <!-- Stats -->
     <div class="stats-row">
       <div class="stat-card">
         <div class="num">{{ total_books }}</div>
@@ -238,7 +275,6 @@
       </div>
     </div>
 
-    <!-- Toolbar: search + filter -->
     <div class="toolbar">
       <form method="GET">
         <input class="search-input" type="text" name="search" placeholder="🔍  Search title or author…" value="{{ search }}">
@@ -255,7 +291,6 @@
       </form>
     </div>
 
-    <!-- Table -->
     <div class="table-wrap">
       <table>
         <thead>
@@ -273,22 +308,22 @@
         <tbody>
           {% for book in books %}
           <tr>
-            <td>
+            <td data-label="Cover">
               {% if book.image %}
               <img class="book-cover" src="{{ book.image.url }}" alt="{{ book.title }}">
               {% else %}
               <div class="no-cover">📖</div>
               {% endif %}
             </td>
-            <td><span class="book-code">{{ book.code }}</span></td>
-            <td>
+            <td data-label="Code"><span class="book-code">{{ book.code }}</span></td>
+            <td data-label="Title">
               <div class="book-title">{{ book.title }}</div>
               <div class="book-author">{{ book.author }}</div>
             </td>
-            <td><span class="cat-pill">{{ book.category }}</span></td>
-            <td>{{ book.year }}</td>
-            <td><strong>{{ book.copies }}</strong></td>
-            <td>
+            <td data-label="Category"><span class="cat-pill">{{ book.category }}</span></td>
+            <td data-label="Year">{{ book.year }}</td>
+            <td data-label="Copies"><strong>{{ book.copies }}</strong></td>
+            <td data-label="Status">
               {% if book.copies == 0 %}
               <span class="badge badge-out">Out of Stock</span>
               {% elif book.copies <= 2 %}
@@ -297,7 +332,7 @@
               <span class="badge badge-available">Available</span>
               {% endif %}
             </td>
-            <td>
+            <td data-label="Actions">
               <div class="actions">
                 <a href="{% url 'admin_edit_book' book.id %}" class="btn-edit">✏ Edit</a>
                 <a href="{% url 'admin_delete_book' book.id %}" class="btn-delete">🗑 Delete</a>
