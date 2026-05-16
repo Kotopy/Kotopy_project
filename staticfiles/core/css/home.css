@@ -43,6 +43,7 @@ header p {
     font-weight: 900;
     transition: 0.3s;
     letter-spacing: 0.5px;
+    text-decoration: none;
 }
 
 .btn:hover {
@@ -50,7 +51,9 @@ header p {
     color: white;
     transform: scale(1.05);
 }
-
+.bottom a{
+    text-decoration: none !important;
+}
 /* =========================
    BOTTOM SECTION
 ========================= */
@@ -58,6 +61,7 @@ header p {
 .bottom {
     padding: 40px 20px;
     text-align: center;
+    text-decoration: none;
     color: rgba(35, 1, 46, 0.7);
 }
 
@@ -70,6 +74,10 @@ header p {
     margin-top: 20px;
 }
 
+a, a:visited, a:active, a:hover {
+    text-decoration: none !important;
+    border-bottom: none !important;
+}
 /* =========================
    RESPONSIVE
 ========================= */
@@ -119,6 +127,7 @@ header p {
 
     .bottom {
         padding: 30px 16px;
+        text-decoration: none;
     }
 
     .bottom h2 {

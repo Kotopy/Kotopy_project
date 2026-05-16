@@ -308,3 +308,50 @@
   font-family: 'Georgia', serif;
   font-size: 1.2rem;
 }
+
+
+
+
+
+
+@media (max-width: 600px) {
+    .books-page {
+        padding: 1.5rem 0.5rem 3rem;
+    }
+
+    .books-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.4rem;
+    }
+
+    .book-card {
+        border-radius: 8px;
+    }
+
+    .book-body {
+        padding: 0.4rem 0.3rem 0;
+        align-items: center;
+    }
+
+    .book-title {
+        font-size: 0.65rem;
+        text-align: center;
+    }
+
+    .book-category, .book-author, .book-copies {
+        display: none;
+    }
+
+    .book-actions {
+        padding: 0.2rem 0.3rem 0.4rem;
+    }
+
+    .btn-borrow, .btn-return, .btn-login, .btn-disabled {
+        font-size: 0.55rem;
+        padding: 0.25rem;
+        border-radius: 4px;
+    }
+}
+
+
+
